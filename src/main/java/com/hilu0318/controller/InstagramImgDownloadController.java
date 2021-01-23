@@ -69,7 +69,6 @@ public class InstagramImgDownloadController {
 			HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlCon.getInputStream(), "UTF-8"));
 			while((resultUrl = br.readLine()) != null) {
-				System.out.println(" - resultUrl : " + resultUrl);
 				if(resultUrl.indexOf(hintStr) > 0) {
 					resultUrl = resultUrl.substring(resultUrl.indexOf(hintStr) + hintStr.length());
 					resultUrl = resultUrl.substring(0, resultUrl.indexOf("\""));
