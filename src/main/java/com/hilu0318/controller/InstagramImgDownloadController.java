@@ -33,6 +33,13 @@ public class InstagramImgDownloadController {
 	
 	@GetMapping(value = "/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public @ResponseBody byte[] getImgFile(@PathVariable("id") String id) {
+		System.out.println("** InstagramImgDownloadController.getImgFile() In");
+		System.out.println("   - ID : " + id);
+		if(id.equals("favicon.ico")) {
+			System.out.println("   - favicon.ico In. return null!!");
+			return null;
+		}
+		
 		String sd = getParseUrlPString(preInstaUrl + id);
 		
 		URL imgUrl;
@@ -57,13 +64,12 @@ public class InstagramImgDownloadController {
 		URL url;
 		String resultUrl = "";
 		BufferedReader br = null;
-		
 		try {
 			url = new URL(parUrl);
 			HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
 			br = new BufferedReader(new InputStreamReader(urlCon.getInputStream(), "UTF-8"));
-			
 			while((resultUrl = br.readLine()) != null) {
+				System.out.println(" - resultUrl : " + resultUrl);
 				if(resultUrl.indexOf(hintStr) > 0) {
 					resultUrl = resultUrl.substring(resultUrl.indexOf(hintStr) + hintStr.length());
 					resultUrl = resultUrl.substring(0, resultUrl.indexOf("\""));
@@ -72,9 +78,11 @@ public class InstagramImgDownloadController {
 				}
 			}
 			if(br != null) br.close();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("IO Exception!!!!");
+			e.printStackTrace();
 		}
+		 
 		return resultUrl;
 	}
 }

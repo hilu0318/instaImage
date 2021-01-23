@@ -1,4 +1,4 @@
-# Instagram Image Download
+# Instagram Image Downloader
 > * 인스타그램 게시물의 공유링크에 있는 게시물 ID를 입력값으로 받아 이미지파일을 호출.
 > * 현재까지 기능
 >   + /{ID} 를 받아 이미지파일을 byte로 리턴. 
